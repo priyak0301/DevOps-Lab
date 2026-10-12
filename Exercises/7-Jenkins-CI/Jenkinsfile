@@ -1,35 +1,36 @@
+
 pipeline {
     agent any
 
     stages {
         stage('Checkout') {
             steps {
-                echo 'Jenkins CI Pipeline Started'
+                echo 'Exercise 7: Jenkins CI Pipeline'
             }
         }
 
         stage('Build') {
             steps {
-                echo 'Building Exercise 7'
-                sh 'pwd'
+                echo 'Checking project files'
                 sh 'ls -la'
+                sh 'test -d Exercises'
             }
         }
 
         stage('Test') {
             steps {
-                echo 'Testing Jenkins pipeline'
-                sh 'test -f Jenkinsfile'
+                echo 'Running automated Python tests'
+                sh 'python3 -m unittest discover -s Exercises/7-Jenkins-CI/tests -p "test_*.py"'
             }
         }
     }
 
     post {
         success {
-            echo 'Exercise 7 completed successfully!'
+            echo 'All pipeline stages completed successfully!'
         }
         failure {
-            echo 'Exercise 7 failed!'
+            echo 'Pipeline failed. Check Console Output.'
         }
     }
 }
