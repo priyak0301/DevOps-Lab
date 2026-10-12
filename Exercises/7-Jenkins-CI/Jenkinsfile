@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Jenkins CI Pipeline Started'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building Exercise 7'
+                sh 'pwd'
+                sh 'ls -la'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing Jenkins pipeline'
+                sh 'test -f Jenkinsfile'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Exercise 7 completed successfully!'
+        }
+        failure {
+            echo 'Exercise 7 failed!'
+        }
+    }
+}
