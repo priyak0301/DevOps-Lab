@@ -1,8 +1,15 @@
-def test_pipeline_message():
-    message = "Jenkins CI Pipeline Started"
-    assert "Jenkins" in message
-    assert "CI" in message
 
-def test_exercise_number():
-    exercise = 7
-    assert exercise == 7
+import unittest
+
+class TestPipeline(unittest.TestCase):
+    def test_pipeline_message(self):
+        message = "Jenkins CI Pipeline Started"
+        self.assertIn("Jenkins", message)
+        self.assertIn("CI", message)
+
+    def test_exercise_number(self):
+        exercise = 7
+        self.assertEqual(exercise, 7)
+
+if __name__ == "__main__":
+    unittest.main()
