@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Verify Project Files') {
+            steps {
+                sh '''
+                    set -eu
+                    test -f delivery_metrics.py
+                    test -f requirements.txt
+                    test -f Dockerfile
+                    test -f prometheus.yml
+                    test -f alert_rules.yml
+                    test -f compose.yaml
+                    echo "All required project files are present."
+                '''
+            }
+        }
+
+        stage('Validate Python') {
+            steps {
+                sh '''
+                    set -eu
+                    python3 --version
+                    python3 -m py_compile delivery_metrics.py
+                '''
+            }
+        }
+
+        stage('Validate Docker') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Delivery monitoring validation completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check the stage logs for details.'
+        }
+    }
+}

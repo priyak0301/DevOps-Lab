@@ -1,0 +1,10 @@
+# Python virtual environment and cache
+.venv/
+__pycache__/
+*.py[cod]
+
+# Jenkins backup (contains sensitive credentials and keys)
+jenkins_home_backup.tar.gz
+
+# Local environment files
+.env
